@@ -77,18 +77,33 @@ export const resetPassword = createAsyncThunk('auth/resetPassword', async ({ tok
 
 // ─── Slice ────────────────────────────────────────────────────────
 
+const initialState = {
+    user: null,
+    isAuthenticated: false,
+    loading: false,
+    error: null,
+    message: null
+};
+
 const authSlice = createSlice({
     name: 'auth',
-    initialState: {
-        user: null,
-        isAuthenticated: false,
-        loading: false,
-        error: null,
-        message: null
-    },
+    initialState,
     reducers: {
         clearError: (state) => { state.error = null; },
-        clearMessage: (state) => { state.message = null; }
+        clearMessage: (state) => { state.message = null; },
+        // Restore auth state from localStorage
+        restoreAuthFromStorage: (state, action) => {
+            const savedAuth = localStorage.getItem('authState');
+            if (savedAuth) {
+                try {
+                    const parsed = JSON.parse(savedAuth);
+                    state.user = parsed.user;
+                    state.isAuthenticated = parsed.isAuthenticated;
+                } catch (error) {
+                    localStorage.removeItem('authState');
+                }
+            }
+        }
     },
     extraReducers: (builder) => {
         // Helper functions
@@ -108,6 +123,10 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.isAuthenticated = true;
                 state.user = action.payload.user;
+                localStorage.setItem('authState', JSON.stringify({
+                    user: action.payload.user,
+                    isAuthenticated: true
+                }));
             })
             .addCase(registerUser.rejected, setError)
 
@@ -117,6 +136,10 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.isAuthenticated = true;
                 state.user = action.payload.user;
+                localStorage.setItem('authState', JSON.stringify({
+                    user: action.payload.user,
+                    isAuthenticated: true
+                }));
             })
             .addCase(loginUser.rejected, setError)
 
@@ -125,6 +148,7 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.isAuthenticated = false;
                 state.user = null;
+                localStorage.removeItem('authState');
             })
 
             // Load User
@@ -133,11 +157,16 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.isAuthenticated = true;
                 state.user = action.payload.user;
+                localStorage.setItem('authState', JSON.stringify({
+                    user: action.payload.user,
+                    isAuthenticated: true
+                }));
             })
             .addCase(loadUser.rejected, (state) => {
                 state.loading = false;
                 state.isAuthenticated = false;
                 state.user = null;
+                localStorage.removeItem('authState');
             })
 
             // Update Profile
@@ -146,6 +175,10 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.user = action.payload.user;
                 state.message = "Profile updated successfully";
+                localStorage.setItem('authState', JSON.stringify({
+                    user: action.payload.user,
+                    isAuthenticated: true
+                }));
             })
             .addCase(updateProfile.rejected, setError)
 
@@ -171,10 +204,14 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.isAuthenticated = true;
                 state.user = action.payload.user;
+                localStorage.setItem('authState', JSON.stringify({
+                    user: action.payload.user,
+                    isAuthenticated: true
+                }));
             })
             .addCase(resetPassword.rejected, setError);
     }
 });
 
-export const { clearError, clearMessage } = authSlice.actions;
+export const { clearError, clearMessage, restoreAuthFromStorage } = authSlice.actions;
 export default authSlice.reducer;

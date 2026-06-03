@@ -1,7 +1,7 @@
-import { Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { loadUser } from './redux/slices/authSlice';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { loadUser, restoreAuthFromStorage } from './redux/slices/authSlice';
 
 // Layout
 import Header from './components/layout/Header';
@@ -46,19 +46,50 @@ import AdminDisputes from './pages/admin/AdminDisputes';
 
 function App() {
     const dispatch = useDispatch();
+    const location = useLocation();
+    const { isAuthenticated } = useSelector((state) => state.auth);
+    const [initialLoadComplete, setInitialLoadComplete] = useState(false);
 
     useEffect(() => {
-        // Only attempt to load user if they have a token
+        // First, restore auth state from localStorage
+        const savedAuth = localStorage.getItem('authState');
+        if (savedAuth) {
+            try {
+                dispatch(restoreAuthFromStorage());
+            } catch (error) {
+                localStorage.removeItem('authState');
+            }
+        }
+
+        // Then check for token and verify with backend
         const cookies = document.cookie.split('; ').reduce((acc, cookie) => {
             const [key, value] = cookie.split('=');
             acc[key] = value;
             return acc;
         }, {});
 
+        // Always try to load user if we have a token
         if (cookies.token) {
-            dispatch(loadUser());
+            dispatch(loadUser()).finally(() => {
+                setInitialLoadComplete(true);
+            });
+        } else {
+            // No token, just mark as complete
+            setInitialLoadComplete(true);
         }
     }, [dispatch]);
+
+    // Save current location when trying to access protected routes without auth
+    useEffect(() => {
+        if (initialLoadComplete && !isAuthenticated && location.pathname !== '/login' && location.pathname !== '/register' && location.pathname !== '/') {
+            localStorage.setItem('lastLocation', location.pathname);
+        }
+    }, [location, isAuthenticated, initialLoadComplete]);
+
+    // Show loader while checking auth on initial load
+    if (!initialLoadComplete) {
+        return <Loader />;
+    }
 
 
   return (

@@ -223,8 +223,10 @@ const Checkout = () => {
 
                                     {/* Items */}
                                     <div className="space-y-3 mb-5">
-                                        {cart.cartItems.map(item => (
-                                            <div key={item.product} className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl">
+                                        {cart.cartItems.map(item => {
+                                            const productId = typeof item.product === 'object' ? item.product._id : item.product;
+                                            return (
+                                            <div key={productId} className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl">
                                                 <img src={item.image} alt={item.name} className="w-14 h-14 object-cover rounded-lg" />
                                                 <div className="flex-1">
                                                     <p className="font-medium text-gray-800 text-sm">{item.name}</p>
@@ -232,7 +234,8 @@ const Checkout = () => {
                                                 </div>
                                                 <p className="font-semibold text-gray-800">₹{item.price * item.quantity * item.rentalTenure}</p>
                                             </div>
-                                        ))}
+                                            );
+                                        })}
                                     </div>
 
                                     {/* Shipping Summary */}

@@ -58,8 +58,10 @@ const Cart = () => {
 
                             {/* Cart Items */}
                             <div className="flex-1 space-y-4">
-                                {cart.cartItems.map(item => (
-                                    <div key={item.product} className="bg-white rounded-2xl border border-gray-100 p-5 flex flex-col sm:flex-row gap-5">
+                                {cart.cartItems.map(item => {
+                                    const productId = typeof item.product === 'object' ? item.product._id : item.product;
+                                    return (
+                                    <div key={productId} className="bg-white rounded-2xl border border-gray-100 p-5 flex flex-col sm:flex-row gap-5">
                                         {/* Image */}
                                         <img
                                             src={item.image || '/placeholder.png'}
@@ -70,11 +72,11 @@ const Cart = () => {
                                         {/* Details */}
                                         <div className="flex-1">
                                             <div className="flex justify-between items-start mb-2">
-                                                <Link to={`/product/${item.product}`} className="font-semibold text-gray-800 hover:text-orange-500 transition-colors">
+                                                <Link to={`/product/${productId}`} className="font-semibold text-gray-800 hover:text-orange-500 transition-colors">
                                                     {item.name}
                                                 </Link>
                                                 <button
-                                                    onClick={() => handleRemove(item.product)}
+                                                    onClick={() => handleRemove(productId)}
                                                     className="text-red-400 hover:text-red-600 transition-colors p-1"
                                                 >
                                                     <FiTrash2 />
@@ -89,7 +91,7 @@ const Cart = () => {
                                                     <label className="text-xs text-gray-500 block mb-1">Rental Tenure</label>
                                                     <select
                                                         value={item.rentalTenure}
-                                                        onChange={e => handleTenureChange(item.product, e.target.value)}
+                                                        onChange={e => handleTenureChange(productId, e.target.value)}
                                                         className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-orange-500"
                                                     >
                                                         {[3, 6, 12].map(t => (
@@ -102,9 +104,9 @@ const Cart = () => {
                                                 <div>
                                                     <label className="text-xs text-gray-500 block mb-1">Quantity</label>
                                                     <div className="flex items-center gap-2">
-                                                        <button onClick={() => handleQuantityChange(item.product, item.quantity - 1)} className="w-7 h-7 border border-gray-200 rounded-lg flex items-center justify-center text-gray-600 hover:border-orange-500 hover:text-orange-500">-</button>
+                                                        <button onClick={() => handleQuantityChange(productId, item.quantity - 1)} className="w-7 h-7 border border-gray-200 rounded-lg flex items-center justify-center text-gray-600 hover:border-orange-500 hover:text-orange-500">-</button>
                                                         <span className="w-6 text-center text-sm font-medium">{item.quantity}</span>
-                                                        <button onClick={() => handleQuantityChange(item.product, item.quantity + 1)} className="w-7 h-7 border border-gray-200 rounded-lg flex items-center justify-center text-gray-600 hover:border-orange-500 hover:text-orange-500">+</button>
+                                                        <button onClick={() => handleQuantityChange(productId, item.quantity + 1)} className="w-7 h-7 border border-gray-200 rounded-lg flex items-center justify-center text-gray-600 hover:border-orange-500 hover:text-orange-500">+</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -115,7 +117,8 @@ const Cart = () => {
                                             </p>
                                         </div>
                                     </div>
-                                ))}
+                                    );
+                                })}
 
                                 {/* Clear Cart */}
                                 <button

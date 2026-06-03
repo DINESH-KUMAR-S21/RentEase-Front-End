@@ -23,9 +23,19 @@ const Login = () => {
             dispatch(clearError());
         }
         if (isAuthenticated) {
-            if (user?.role === 'admin') navigate('/admin/dashboard');
-            else if (user?.role === 'vendor') navigate('/vendor/dashboard');
-            else navigate('/');
+            // Check if there's a location to redirect to after login
+            const redirectPath = localStorage.getItem('redirectAfterLogin');
+            localStorage.removeItem('redirectAfterLogin');
+            
+            if (redirectPath) {
+                navigate(redirectPath);
+            } else if (user?.role === 'admin') {
+                navigate('/admin/dashboard');
+            } else if (user?.role === 'vendor') {
+                navigate('/vendor/dashboard');
+            } else {
+                navigate('/');
+            }
         }
     }, [error, isAuthenticated, user, dispatch, navigate]);
 

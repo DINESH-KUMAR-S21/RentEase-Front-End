@@ -56,6 +56,7 @@ const VendorDashboard = () => {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                        <StatCard title="Monthly Revenue" value={`₹${dashboard?.monthlyRevenue || 0}`} icon={<FiDollarSign />} color="green" />
                         <StatCard title="Active Rentals" value={dashboard?.activeRentals || 0} icon={<FiRefreshCw />} color="orange" />
                         <StatCard title="Pending Pickups" value={dashboard?.pendingReturns || 0} icon={<FiTruck />} color="red" />
                         <StatCard title="Maintenance Requests" value={dashboard?.maintenanceRequests || 0} icon={<FiTool />} color="blue" />
