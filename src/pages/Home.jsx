@@ -37,7 +37,7 @@ const features = [
 ];
 
 const testimonials = [
-  { name: 'Arun K.', city: 'Chennai', review: 'Moved to a new city and RentEase had my apartment fully furnished in 2 days. Incredible service!', rating: 5 },
+  { name: 'Arun K.', city: 'Chennai', review: 'Moved to a new city and Rentyfy had my apartment fully furnished in 2 days. Incredible service!', rating: 5 },
   { name: 'Priya S.', city: 'Bangalore', review: 'Saved so much money renting instead of buying. The furniture quality is surprisingly premium.', rating: 5 },
   { name: 'Ravi M.', city: 'Hyderabad', review: 'The AC stopped working and a technician was at my place within 4 hours. Superb support!', rating: 5 },
 ];
@@ -128,7 +128,7 @@ const Home = () => {
         <div className="max-w-7xl w-full">
           <div className="text-center mb-12">
             <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-2">Simple as 1-2-3</p>
-            <h2 className="text-3xl font-black text-gray-900">How RentEase Works</h2>
+            <h2 className="text-3xl font-black text-gray-900">How Rentyfy Works</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
             {/* Connector line */}
@@ -151,13 +151,13 @@ const Home = () => {
           </div>
         </div>        </div>      </section>
 
-      {/* ── Why RentEase ── */}
+      {/* ── Why Rentyfy ── */}
       <section className="py-16 w-full bg-gray-50">
         <div className="w-full px-4 sm:px-6 lg:px-8 flex justify-center">
         <div className="max-w-7xl w-full">
           <div className="text-center mb-12">
             <p className="text-orange-500 text-sm font-semibold tracking-widest uppercase mb-2">Our Promise</p>
-            <h2 className="text-3xl font-black text-gray-900">Why Choose RentEase?</h2>
+            <h2 className="text-3xl font-black text-gray-900">Why Choose Rentyfy?</h2>
             <p className="text-gray-500 mt-2">We make renting simple, affordable, and completely hassle-free</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

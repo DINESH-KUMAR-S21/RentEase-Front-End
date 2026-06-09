@@ -66,7 +66,7 @@ const Header = () => {
               <FiHome className="text-white text-base" />
             </div>
             <span className="text-xl font-extrabold tracking-tight text-gray-900">
-              Rent<span className="text-orange-500">Ease</span>
+              Renty<span className="text-orange-500">fy</span>
             </span>
           </Link>
 

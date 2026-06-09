@@ -15,7 +15,7 @@ const Footer = () => {
                                 <FiHome className="text-white text-lg" />
                             </div>
                             <span className="text-xl font-bold text-white">
-                                Rent<span className="text-orange-500">Ease</span>
+                                Renty<span className="text-orange-500">fy</span>
                             </span>
                         </div>
                         <p className="text-sm text-gray-400 leading-relaxed">
@@ -71,7 +71,7 @@ const Footer = () => {
                             </li>
                             <li className="flex items-center gap-3">
                                 <FiMail className="text-orange-500 shrink-0" />
-                                <span>support@rentease.in</span>
+                                <span>support@rentyfy.in</span>
                             </li>
                         </ul>
                     </div>
@@ -79,7 +79,7 @@ const Footer = () => {
 
                 {/* Bottom */}
                 <div className="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-sm text-gray-500">
-                    <p>© {new Date().getFullYear()} RentEase. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} Rentyfy. All rights reserved.</p>
                     <div className="flex gap-4">
                         <a href="#" className="hover:text-orange-500 transition-colors">Privacy Policy</a>
                         <a href="#" className="hover:text-orange-500 transition-colors">Terms of Service</a>

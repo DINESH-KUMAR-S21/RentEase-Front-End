@@ -59,7 +59,7 @@ const Register = () => {
                                 <FiHome className="text-white text-2xl" />
                             </div>
                             <h1 className="text-2xl font-bold text-gray-800">Create account</h1>
-                            <p className="text-gray-500 text-sm mt-1">Join RentEase today</p>
+                            <p className="text-gray-500 text-sm mt-1">Join Rentyfy today</p>
                         </div>
 
                         <form onSubmit={handleSubmit} className="space-y-5">

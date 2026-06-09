@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 const MetaData = ({ title }) => {
     useEffect(() => {
-        document.title = `${title} | RentEase`;
+        document.title = `${title} | Rentyfy`;
     }, [title]);
 
     return null;
