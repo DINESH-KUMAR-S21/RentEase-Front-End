@@ -43,6 +43,7 @@ import AdminOrders from './pages/admin/AdminOrders';
 import AdminRentals from './pages/admin/AdminRentals';
 import AdminLocations from './pages/admin/AdminLocations';
 import AdminDisputes from './pages/admin/AdminDisputes';
+import AdminMaintenance from './pages/admin/AdminMaintenance';
 
 function App() {
     const dispatch = useDispatch();
@@ -132,6 +133,7 @@ function App() {
           <Route path="/admin/rentals" element={<AdminRentals />} />
           <Route path="/admin/locations" element={<AdminLocations />} />
           <Route path="/admin/disputes" element={<AdminDisputes />} />
+          <Route path="/admin/maintenance" element={<AdminMaintenance />} />
         </Route>
 
       </Routes>
